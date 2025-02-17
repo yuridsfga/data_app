@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "fga-app"
+version = "0.1.0"
+description = ""
+authors = ["yuridsfga <yuri.calzzani@fga.com.br>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+streamlit = "^1.42.0"
+sqlalchemy = "^2.0.38"
+pandas = "^2.2.3"
+python-dotenv = "^1.0.1"
+mysqlclient = "^2.2.7"
+matplot = "^0.1.9"
+altair = "^5.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

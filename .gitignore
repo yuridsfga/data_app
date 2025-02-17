@@ -1,0 +1,69 @@
+# Arquivos de ambiente virtual (para evitar subir dependências locais)
+venv/
+.env
+.envrc
+*.env
+
+# Arquivos de configuração sensíveis (credenciais, configurações privadas)
+config.json
+config.yaml
+config.ini
+secrets.toml
+*.pem
+*.crt
+*.key
+
+# Queries e arquivos de banco de dados
+queries/
+*.sql
+database.sqlite3
+db.sqlite3
+database.mysqlclient
+*.db
+*.db-journal
+
+# Arquivos gerados por cálculos e análises
+*.csv
+*.xlsx
+*.parquet
+*.feather
+*.h5
+*.pkl
+*.npz
+*.log
+*.dat
+
+# Cache do Python (arquivos compilados que não são necessários no repositório)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs e arquivos temporários
+logs/
+*.log
+*.tmp
+*.bak
+
+# Modelos treinados e arquivos de machine learning
+*.h5
+*.hdf5
+*.ckpt
+*.tflite
+*.pth
+*.pt
+*.onnx
+*.joblib
+
+# Arquivos de IDEs e editores (para evitar subir configurações locais)
+.vscode/
+.idea/
+*.sublime-workspace
+*.code-workspace
+
+# Arquivos de Jupyter Notebook que armazenam saídas de células
+.ipynb_checkpoints/
+
+# Arquivos do Streamlit (cache e histórico)
+.streamlit/
+.history/
