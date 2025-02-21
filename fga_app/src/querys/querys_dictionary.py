@@ -3,7 +3,7 @@ import sqlalchemy
 from sqlalchemy import text
 from src.connection.database import engine
 
-def query_primeiro_contrato_acucar(min_date, max_date): 
+def query_primeiro_contrato_acucar(min_date, max_date, contrato: int): 
     query = text(f"""
         WITH ranked_data AS (
             SELECT 
@@ -26,7 +26,7 @@ def query_primeiro_contrato_acucar(min_date, max_date):
             anterior,
             vencimento
         FROM ranked_data
-        WHERE rank_vencimento = 1
+        WHERE rank_vencimento = {contrato}
         """)
     
     return query
@@ -56,7 +56,7 @@ def query_contratos_ativos(min_date, max_date):
     return query
 
 
-def query_reais_ton_primeiro_contrato(min_date, max_date):
+def query_reais_ton_primeiro_contrato(min_date, max_date, contrato: int):
     query = text(f"""
     WITH reais_ton_prim AS (
     SELECT
@@ -83,7 +83,7 @@ SELECT
 FROM 
     reais_ton_prim
 WHERE 
-    row_num = 1
+    row_num = {contrato}
 ORDER BY data ASC;
     """)
 
@@ -107,7 +107,7 @@ def query_reais_ton(min_date, max_date):
 
     return query
 
-def query_serie_inflacinada():
+def query_serie_inflacinada(min_date, max_date):
     query = text(f"""
     WITH ipca_adjusted AS (
     SELECT
