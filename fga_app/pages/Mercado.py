@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import altair as alt
 import matplotlib.pyplot as plt
+from datetime import date
 from src.config.pages_config import Pages
 from src.connection.database import engine
 from src.config.trending_functions import detrending
@@ -22,6 +23,14 @@ mercado = Pages(
 )
 
 mercado_page = mercado._page_setup()
+
+dicionario_contratos = {
+    'Primeiro Contrato' : 1,
+    'Segundo Contrato' : 2, 
+    'Terceiro Contrato' : 3, 
+    'Quarto Contrato' : 4, 
+    'Quinto Contrato': 5
+}
 
 # CSS personalizado para o tema agrícola
 st.markdown("""
@@ -106,7 +115,7 @@ with tab1:
     with col1:
         contratos = st.selectbox(
             "Selecione um produto:",
-            options=['All', 'Primeiro Contrato']
+            options=['All', 'Primeiro Contrato', 'Segundo Contrato', 'Terceiro Contrato', 'Quarto Contrato', 'Quinto Contrato']
             )
 
     col1, col2, col3, col4 = st.columns(4)
@@ -115,6 +124,7 @@ with tab1:
         data_inicio = st.date_input(
             label="Selecione data inicial da série:",
             value=pd.to_datetime("2023-01-01"),
+            min_value=date(2000, 1, 1),
             key="data_inicio"
         )
         
@@ -153,15 +163,15 @@ if filtro_tendencia != st.session_state.filtro_tendencia:
 if data_inicio_query <= data_fim_query:
     with engine.connect() as connection:
         if st.session_state.filtro_reais_ton:
-            query = query_reais_ton_primeiro_contrato(data_inicio_query, data_fim_query)
+            query = query_reais_ton_primeiro_contrato(data_inicio_query, data_fim_query,dicionario_contratos[contratos] )
         elif st.session_state.filtro_tendencia and st.session_state.filtro_reais_ton:
              query = query_serie_inflacinada(data_inicio_query, data_fim_query)
         else:
             if contratos == 'All':
                 query = query_contratos_ativos(data_inicio_query, data_fim_query)
-            elif contratos == 'Primeiro Contrato':
-                query = query_primeiro_contrato_acucar(data_inicio_query, data_fim_query)
-        
+            else:
+                query = query_primeiro_contrato_acucar(data_inicio_query, data_fim_query, dicionario_contratos[contratos])
+
         result = connection.execute(query)
         df = pd.DataFrame(result.fetchall(), columns=result.keys())
         if st.session_state.filtro_tendencia and st.session_state.filtro_reais_ton:
@@ -182,11 +192,12 @@ try:
                     format="%d/%m/%Y",
                     title="Data",
                     labelAngle=-45
-                )),
+                ),
+                ),
         y=alt.Y(f"{coluna_preco}:Q", 
                 title="Preço (R$/ton)" if st.session_state.filtro_reais_ton else "Preço (cts/lp)"
                 ),
-        color=alt.Color("nome_contrato:N", legend=alt.Legend(title="Contrato")),
+        # color=alt.Color("nome_contrato:N", legend=alt.Legend(title="Contrato")),
         tooltip=[
             alt.Tooltip("data:T", format="%d/%m/%Y"),
             coluna_preco,
