@@ -1,14 +1,16 @@
+import os
+import streamlit as st
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.exc import SQLAlchemyError
 from dotenv import load_dotenv
-import os
+
 
 
 # Carrega variáveis .env
 load_dotenv()
 # Configurações carregadas do aqrquivo .env para database_url
-DATABASE_URL = os.getenv("DB_URL")
+DATABASE_URL = st.secrets["DB_URL"]
 
 # Engine de conexão
 engine = create_engine(
