@@ -15,7 +15,7 @@ st.set_page_config(
 
 col1, col2 = st.columns([1, 4])
 with col1:
-    st.image('C:/Users/YuriSaneripCalzzani/Documents/GitHub/data_app/fga_app/src/images/fga_logo_png.png', width=150) # Substitua pelo link da sua logo
+    st.image('fga_app/src/images/fga_logo_png.png', width=150) # Substitua pelo link da sua logo
 
 
 

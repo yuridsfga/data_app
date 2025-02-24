@@ -2,11 +2,13 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import altair as alt
+import sys
 from datetime import date
-from fga_app.src.config.pages_config import Pages
-from fga_app.src.connection.database import engine
-from fga_app.src.config.trending_functions import detrending
-from fga_app.src.querys.querys_dictionary import (
+sys.path.insert(0, 'C:/Users/YuriSaneripCalzzani/Documents/GitHub/data_app/fga_app/src')
+from src.config.pages_config import Pages
+from src.connection.database import engine
+from src.config.trending_functions import detrending
+from src.querys.querys_dictionary import (
     query_primeiro_contrato_acucar,
     query_contratos_ativos,
     query_reais_ton,
