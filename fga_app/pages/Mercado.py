@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import altair as alt
-import matplotlib.pyplot as plt
 from datetime import date
 from src.config.pages_config import Pages
 from src.connection.database import engine
