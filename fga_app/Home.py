@@ -1,5 +1,4 @@
 import streamlit as st
-from fga_app.src.config.pages_config import Pages
 
 
 st.set_page_config(
